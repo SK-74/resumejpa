@@ -2,6 +2,8 @@ package com.resumejpa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.resumejpa.entity.Member;
 
@@ -24,4 +26,13 @@ public interface MemberJpaRepository extends JpaRepository<Member, Long>
 	 * @return
 	 */
 	long countByEmailAndIdNot(String email, Long excludeId);
+
+	/**
+	 * メアドが一致する件数を取得する(挙動はcountByEmailと同じ)
+	 * QueryアノテーションによってSQLを直接書くことが出来る
+	 * @param email メアド
+	 * @return
+	 */
+	@Query(value = "SELECT COUNT(*) FROM members WHERE email = :email", nativeQuery = true)
+	long queryCountByEmail(@Param(value = "email") String email);
 }

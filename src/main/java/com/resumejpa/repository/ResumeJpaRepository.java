@@ -9,8 +9,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import com.resumejpa.entity.Member;
 import com.resumejpa.entity.Resume;
 
-import jakarta.transaction.Transactional;
-
 public interface ResumeJpaRepository extends JpaRepository<Resume, Long> 
 											, JpaSpecificationExecutor<Resume> {
 
@@ -27,6 +25,5 @@ public interface ResumeJpaRepository extends JpaRepository<Resume, Long>
 	 * @param menber
 	 * @return
 	 */
-	@Transactional
 	long deleteByMember(Member menber);
 }
