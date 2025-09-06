@@ -38,9 +38,17 @@ public class ResumeService {
 	 * @throws Exception
 	 */
 	public List<Resume> findByMemberId(Long id) throws Exception {
-		return this.resumeRepo.findByMember(
-				this.memberRepo.findById(id).orElse(new Member()), 
+	    Member member = this.memberRepo.findById(id).orElse(new Member());
+		return this.resumeRepo.findByMember(member, 
 				Sort.by(Sort.Direction.ASC, "typ", "ym"));
+//Example版
+//	    Resume probe = new Resume();
+//	    probe.setMember(member);
+//
+//	    Example<Resume> example = Example.of(probe);
+//
+//	    return this.resumeRepo.findAll(example,
+//	            Sort.by(Sort.Direction.ASC, "typ", "ym"));
 	}
 
 	/**
